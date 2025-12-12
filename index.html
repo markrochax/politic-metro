@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Politicômetro BR - Teste Político Gratuito</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXX"
+        crossorigin="anonymous"></script>
+    <!-- Facebook Pixel -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'SEU_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+</head>
+
+<body>
+    <!-- Header Mobile -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🏛️</span>
+                <h1 class="logo-text">Politicômetro<span class="logo-br">BR</span></h1>
+            </div>
+            <button class="menu-btn" id="menuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Menu Mobile -->
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="#como-funciona">Como Funciona</a>
+            <a href="#resultados">Resultados Anteriores</a>
+            <a href="contato-politico.html" class="nav-premium">💼 Para Políticos</a>
+            <a href="#sobre">Sobre</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section - Mobile First -->
+    <main class="hero-section">
+        <!-- Ad Banner Top Mobile -->
+        <div class="ad-mobile-top">
+            <div class="ad-label">Patrocinado</div>
+            <div id="adTopMobile" class="ad-container">
+                <!-- AdSense Responsive -->
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXX" data-ad-slot="XXXXXX"
+                    data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge">🎯 30 PERGUNTAS</span>
+                <span class="badge">📊 RESULTADO PRECISO</span>
+            </div>
+
+            <h2 class="hero-title">
+                Descubra seu <span class="highlight">posicionamento político</span> em menos de 5 minutos
+            </h2>
+
+            <p class="hero-subtitle">
+                Teste grátis • Sem cadastro • Resultado imediato
+            </p>
+
+            <!-- Stats em Carrossel Mobile -->
+            <div class="stats-carousel">
+                <div class="stats-slide active">
+                    <div class="stat-number">+50.000</div>
+                    <div class="stat-text">brasileiros já testaram</div>
+                </div>
+                <div class="stats-slide">
+                    <div class="stat-number">94%</div>
+                    <div class="stat-text">concordam com resultado</div>
+                </div>
+                <div class="stats-slide">
+                    <div class="stat-number">30</div>
+                    <div class="stat-text">perguntas atualizadas</div>
+                </div>
+            </div>
+
+            <!-- CTA Principal -->
+            <a href="quiz.html" class="cta-button" id="startQuiz">
+                <span class="cta-icon">🔍</span>
+                <span class="cta-text">DESCOBRIR MEU PERFIL POLÍTICO</span>
+                <span class="cta-sub">(Clique aqui - É grátis!)</span>
+            </a>
+
+            <!-- Trust Signals -->
+            <div class="trust-signals">
+                <div class="trust-item">
+                    <span class="trust-icon">🔒</span>
+                    <span>100% anônimo</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">⚡</span>
+                    <span>5 minutos</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">📱</span>
+                    <span>Otimizado mobile</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ad Banner Middle -->
+        <div class="ad-mobile-middle">
+            <div class="ad-container">
+                <!-- Space for 320x50 mobile banner -->
+                <div style="width: 320px; height: 50px; background: #f5f5f5; margin: 0 auto;">
+                    <!-- Banner 320x50 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Como Funciona Section -->
+    <section class="how-it-works" id="como-funciona">
+        <h3 class="section-title">📋 Como funciona o teste?</h3>
+
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">📝</div>
+                <h4>Responda 30 questões</h4>
+                <p>Afirmações sobre política e sociedade</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">⚖️</div>
+                <h4>Escala de concordância</h4>
+                <p>De "Discordo Totalmente" a "Concordo Totalmente"</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">📊</div>
+                <h4>Resultado detalhado</h4>
+                <p>Veja seu perfil completo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Resultados -->
+    <section class="results-preview" id="resultados">
+        <h3 class="section-title">🎭 Quais são os perfis?</h3>
+
+        <div class="results-scroll">
+            <div class="result-preview-card liberal">
+                <h4>Esquerda Progressista</h4>
+                <p>Estado forte, direitos sociais</p>
+            </div>
+            <div class="result-preview-card conservative">
+                <h4>Direita Conservadora</h4>
+                <p>Mercado livre, valores tradicionais</p>
+            </div>
+            <div class="result-preview-card center">
+                <h4>Centro Pragmático</h4>
+                <p>Soluções equilibradas</p>
+            </div>
+            <div class="result-preview-card libertarian">
+                <h4>Libertário</h4>
+                <p>Máxima liberdade individual</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <h3 class="section-title">👥 O que dizem quem já fez:</h3>
+
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <p>"Teste muito preciso! Acertou meu posicionamento."</p>
+                <div class="testimonial-author">
+                    <strong>Maria S., 28 anos</strong>
+                    <span class="author-location">São Paulo</span>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p>"Fiz com minha família, gerou ótimas discussões!"</p>
+                <div class="testimonial-author">
+                    <strong>Carlos R., 42 anos</strong>
+                    <span class="author-location">Belo Horizonte</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="final-cta">
+        <!-- Ad Banner Bottom -->
+        <div class="ad-mobile-bottom">
+            <div class="ad-container">
+                <!-- Native ad style -->
+                <div class="native-ad">
+                    <div class="native-ad-badge">PUBLICIDADE</div>
+                    <p>💡 Conheça cursos de política</p>
+                    <small>Anúncio</small>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="cta-final-title">Pronto para descobrir?</h3>
+        <p class="cta-final-subtitle">Seu resultado espera por você</p>
+
+        <a href="quiz.html" class="cta-button cta-final">
+            <span class="cta-icon">🚀</span>
+            <span class="cta-text">COMEÇAR TESTE AGORA</span>
+        </a>
+
+        <div class="final-trust">
+            <p>⚠️ <strong>Atenção:</strong> Este é um teste educativo. Não coleta dados pessoais.</p>
+        </div>
+    </section>
+
+    <!-- Footer Mobile -->
+    <footer class="mobile-footer">
+        <div class="footer-links">
+            <a href="privacidade.html">Privacidade</a>
+            <a href="termos.html">Termos de Uso</a>
+            <a href="contato.html">Contato</a>
+            <a href="contato-politico.html" class="footer-premium">💼 Área Políticos</a>
+        </div>
+
+        <div class="footer-info">
+            <p>© 2024 Politicômetro BR</p>
+            <p class="footer-disclaimer">Resultos para fins educativos. Não é pesquisa eleitoral oficial.</p>
+        </div>
+
+        <!-- Pixel de Conversão -->
+        <img src="https://www.facebook.com/tr?id=SEU_PIXEL&ev=Lead&noscript=1" height="1" width="1"
+            style="display:none">
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+
+    <!-- Scripts Mobile -->
+    <script>
+        // Menu Mobile Toggle
+        document.getElementById('menuBtn').addEventListener('click', function () {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // Stats Carousel
+        let currentStat = 0;
+        const statSlides = document.querySelectorAll('.stats-slide');
+
+        setInterval(() => {
+            statSlides[currentStat].classList.remove('active');
+            currentStat = (currentStat + 1) % statSlides.length;
+            statSlides[currentStat].classList.add('active');
+        }, 3000);
+
+        // Google Ads
+        (adsbygoogle = window.adsbygoogle || []).push({});
+
+        // Tracking CTA Click
+        document.getElementById('startQuiz').addEventListener('click', function () {
+            fbq('track', 'Lead');
+            gtag('event', 'start_quiz', {
+                'event_category': 'engagement'
+            });
+        });
+
+        // Swipe para resultados preview
+        const resultsScroll = document.querySelector('.results-scroll');
+        let isScrolling;
+
+        resultsScroll.addEventListener('scroll', function () {
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(function () {
+                // Atualizar indicadores
+            }, 66);
+        });
+
+        // Otimização para mobile
+        if ('ontouchstart' in window) {
+            document.documentElement.classList.add('touch-device');
+        }
+    </script>
+</body>
+
+</html>

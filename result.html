@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Seu Resultado Político - Politicômetro BR</title>
+    <link rel="stylesheet" href="style-result.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Progress Bar Animation */
+        @keyframes progressFill {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: var(--target-width);
+            }
+        }
+
+        /* Shake Animation for Results */
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        /* Garantir que o conteúdo fique escondido até carregar */
+        .result-container {
+            display: none;
+        }
+
+        .result-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+    </style>
+    <!-- Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXX"></script>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="result-loader" id="resultLoader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Analisando suas respostas...</p>
+            <p class="loader-sub">Gerando seu perfil político único</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="result-header">
+        <div class="header-content">
+            <a href="index.html" class="home-link">🏠</a>
+            <h1 class="header-title">Seu <span class="highlight">Resultado</span></h1>
+            <button class="share-btn" onclick="openShareMenu()">📤</button>
+        </div>
+
+        <!-- Share Menu -->
+        <div class="share-menu" id="shareMenu">
+            <button onclick="shareOnWhatsApp()">💬 WhatsApp</button>
+            <button onclick="shareOnFacebook()">📘 Facebook</button>
+            <button onclick="shareOnTwitter()">🐦 Twitter</button>
+            <button onclick="downloadResult()">📥 Salvar</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="result-container">
+        <!-- Ad Top -->
+        <div class="result-ad-top">
+            <div class="ad-label">ANÚNCIO</div>
+            <div id="adTop"></div>
+        </div>
+
+        <!-- Result Card -->
+        <section class="result-summary" id="resultSummary">
+            <div class="result-badge" id="resultBadge">
+                <!-- Badge will be generated -->
+            </div>
+
+            <h2 class="result-title" id="resultTitle"></h2>
+            <p class="result-description" id="resultDescription"></p>
+
+            <div class="result-emoji" id="resultEmoji"></div>
+
+            <!-- Score Circle -->
+            <div class="score-circle-container">
+                <div class="score-circle">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#e0e0e0" stroke-width="12" />
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#2E8B57" stroke-width="12"
+                            stroke-linecap="round" id="scoreCircle" transform="rotate(-90 60 60)" />
+                    </svg>
+                    <div class="score-text">
+                        <span class="score-number" id="scoreNumber">0</span>
+                        <span class="score-label">pontos</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ESPECTRO POLÍTICO PRINCIPAL -->
+        <section class="spectrum-section">
+            <h3 class="section-title">📊 Seu Espectro Político</h3>
+
+            <!-- Direita vs Esquerda -->
+            <div class="spectrum-item">
+                <div class="spectrum-header">
+                    <span class="spectrum-label-left">👈 Esquerda</span>
+                    <span class="spectrum-label-center">Eixo Econômico</span>
+                    <span class="spectrum-label-right">Direita 👉</span>
+                </div>
+                <div class="spectrum-bar">
+                    <div class="spectrum-fill" id="spectrumFill" style="--target-width: 50%"></div>
+                    <div class="spectrum-marker" id="spectrumMarker" style="left: 50%"></div>
+                </div>
+                <div class="spectrum-numbers">
+                    <span class="left-percent" id="leftPercent">0%</span>
+                    <span class="right-percent" id="rightPercent">0%</span>
+                </div>
+            </div>
+
+            <!-- Nacionalismo vs Globalismo -->
+            <div class="spectrum-item">
+                <div class="spectrum-header">
+                    <span class="spectrum-label-left">🇧🇷 Nacionalista</span>
+                    <span class="spectrum-label-center">Eixo Diplomático</span>
+                    <span class="spectrum-label-right">Globalista 🌍</span>
+                </div>
+                <div class="spectrum-bar">
+                    <div class="spectrum-fill" id="nationalismFill" style="--target-width: 50%"></div>
+                    <div class="spectrum-marker" id="nationalismMarker" style="left: 50%"></div>
+                </div>
+                <div class="spectrum-numbers">
+                    <span class="left-percent" id="nationalistPercent">0%</span>
+                    <span class="right-percent" id="globalistPercent">0%</span>
+                </div>
+            </div>
+
+            <!-- Capitalista vs Socialista -->
+            <div class="spectrum-item">
+                <div class="spectrum-header">
+                    <span class="spectrum-label-left">🏭 Capitalista</span>
+                    <span class="spectrum-label-center">Modelo Econômico</span>
+                    <span class="spectrum-label-right">Socialista ⚖️</span>
+                </div>
+                <div class="spectrum-bar">
+                    <div class="spectrum-fill" id="capitalismFill" style="--target-width: 50%"></div>
+                    <div class="spectrum-marker" id="capitalismMarker" style="left: 50%"></div>
+                </div>
+                <div class="spectrum-numbers">
+                    <span class="left-percent" id="capitalistPercent">0%</span>
+                    <span class="right-percent" id="socialistPercent">0%</span>
+                </div>
+            </div>
+
+            <!-- Liberal vs Conservador -->
+            <div class="spectrum-item">
+                <div class="spectrum-header">
+                    <span class="spectrum-label-left">🌈 Progressista</span>
+                    <span class="spectrum-label-center">Valores Sociais</span>
+                    <span class="spectrum-label-right">Conservador ⛪</span>
+                </div>
+                <div class="spectrum-bar">
+                    <div class="spectrum-fill" id="valuesFill" style="--target-width: 50%"></div>
+                    <div class="spectrum-marker" id="valuesMarker" style="left: 50%"></div>
+                </div>
+                <div class="spectrum-numbers">
+                    <span class="left-percent" id="liberalPercent">0%</span>
+                    <span class="right-percent" id="conservativePercent">0%</span>
+                </div>
+            </div>
+
+            <!-- Autoritário vs Libertário -->
+            <div class="spectrum-item">
+                <div class="spectrum-header">
+                    <span class="spectrum-label-left">🏛️ Autoritário</span>
+                    <span class="spectrum-label-center">Liberdade Individual</span>
+                    <span class="spectrum-label-right">Libertário 🗽</span>
+                </div>
+                <div class="spectrum-bar">
+                    <div class="spectrum-fill" id="freedomFill" style="--target-width: 50%"></div>
+                    <div class="spectrum-marker" id="freedomMarker" style="left: 50%"></div>
+                </div>
+                <div class="spectrum-numbers">
+                    <span class="left-percent" id="authoritarianPercent">0%</span>
+                    <span class="right-percent" id="libertarianPercent">0%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Middle -->
+        <div class="result-ad-middle">
+            <div class="ad-unit">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXX" data-ad-slot="XXXXXX"
+                    data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+
+        <!-- GRÁFICO DE COMPARAÇÃO -->
+        <section class="comparison-section">
+            <h3 class="section-title">📈 Comparação por Tema</h3>
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+            <div class="chart-legend" id="chartLegend"></div>
+        </section>
+
+        <!-- PERGUNTA DO GOVERNO -->
+        <section class="governance-section">
+            <div class="governance-card">
+                <h3 class="governance-title">🏛️ Baseado no seu perfil...</h3>
+                <p class="governance-question">Qual pessoa você acha que está mais apta a governar o seu país hoje?</p>
+
+                <div class="candidates-grid" id="candidatesGrid">
+                    <!-- Candidates will be generated based on results -->
+                </div>
+
+                <div class="governance-note">
+                    <small>💡 Esta recomendação é baseada na compatibilidade ideológica, não em pesquisa
+                        eleitoral.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Bottom -->
+        <div class="result-ad-bottom">
+            <div class="ad-label">PATROCINADO</div>
+            <div class="native-ad">
+                <h4>🎯 Político ou Pesquisador?</h4>
+                <p>Obtenha dados detalhados sobre eleitores como você</p>
+                <a href="contato-politico.html" class="premium-btn">💼 Acessar Painel de Dados</a>
+            </div>
+        </div>
+
+        <!-- SHARE SECTION -->
+        <section class="share-section">
+            <h3 class="section-title">📱 Compartilhe seu resultado</h3>
+            <p class="share-text">Mostre seu posicionamento e provoque discussões saudáveis!</p>
+
+            <div class="share-buttons">
+                <button class="share-button whatsapp" onclick="shareOnWhatsApp()">
+                    💬 WhatsApp
+                </button>
+                <button class="share-button facebook" onclick="shareOnFacebook()">
+                    📘 Facebook
+                </button>
+                <button class="share-button twitter" onclick="shareOnTwitter()">
+                    🐦 Twitter
+                </button>
+                <button class="share-button copy" onclick="copyResultLink()">
+                    📋 Copiar Link
+                </button>
+            </div>
+        </section>
+
+        <!-- DETAILED ANALYSIS -->
+        <section class="analysis-section">
+            <h3 class="section-title">🔍 Análise Detalhada</h3>
+
+            <div class="analysis-tabs">
+                <button class="tab-btn active" data-tab="economy">💰 Economia</button>
+                <button class="tab-btn" data-tab="social">👥 Social</button>
+                <button class="tab-btn" data-tab="values">⚖️ Valores</button>
+                <button class="tab-btn" data-tab="politics">🏛️ Política</button>
+            </div>
+
+            <div class="tab-content active" id="economyTab">
+                <div class="analysis-content" id="economyAnalysis">
+                    <!-- Economy analysis will be loaded here -->
+                </div>
+            </div>
+
+            <div class="tab-content" id="socialTab">
+                <div class="analysis-content" id="socialAnalysis">
+                    <!-- Social analysis will be loaded here -->
+                </div>
+            </div>
+
+            <div class="tab-content" id="valuesTab">
+                <div class="analysis-content" id="valuesAnalysis">
+                    <!-- Values analysis will be loaded here -->
+                </div>
+            </div>
+
+            <div class="tab-content" id="politicsTab">
+                <div class="analysis-content" id="politicsAnalysis">
+                    <!-- Politics analysis will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- RESTART & COMPARE -->
+        <section class="actions-section">
+            <button class="action-btn restart-btn" onclick="window.location.href='quiz.html'">
+                🔄 Fazer Teste Novamente
+            </button>
+            <button class="action-btn compare-btn" onclick="openCompareModal()">
+                ⚔️ Comparar com Amigos
+            </button>
+            <button class="action-btn details-btn" onclick="window.location.href='#analysis'">
+                📊 Ver Detalhes Completos
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="result-footer">
+        <div class="footer-disclaimer">
+            <p>⚠️ <strong>Isenção de Responsabilidade:</strong> Este teste é para fins educativos e de entretenimento.
+                Não representa uma análise psicológica profissional nem pesquisa eleitoral oficial.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="index.html">🏠 Início</a>
+            <a href="sobre.html">ℹ️ Sobre</a>
+            <a href="privacidade.html">🔒 Privacidade</a>
+            <a href="contato-politico.html" class="premium-link">💼 Área Políticos</a>
+        </div>
+
+        <div class="footer-copyright">
+            <p>© 2024 Politicômetro BR | <span id="resultDate"></span></p>
+        </div>
+    </footer>
+
+    <!-- Compare Modal -->
+    <div class="modal" id="compareModal">
+        <div class="modal-content">
+            <h3>⚔️ Comparar Resultados</h3>
+            <p>Insira o código do resultado de um amigo:</p>
+            <input type="text" id="compareCode" placeholder="Código ex: POL123ABC" maxlength="9">
+            <div class="modal-buttons">
+                <button onclick="compareResults()" class="modal-btn primary">Comparar</button>
+                <button onclick="closeCompareModal()" class="modal-btn secondary">Cancelar</button>
+            </div>
+            <p class="modal-hint">💡 Peça para seus amigos compartilharem o código após fazerem o teste</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="result.js"></script>
+    <script>
+        // Inicializar ads
+        (adsbygoogle = window.adsbygoogle || []).push({});
+
+        // Mostrar data atual
+        document.getElementById('resultDate').textContent = new Date().toLocaleDateString('pt-BR');
+    </script>
+</body>
+
+</html>

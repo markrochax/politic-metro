@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Teste Político - Politicômetro BR</title>
+    <link rel="stylesheet" href="style-quiz.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXX"></script>
+    <style>
+        /* Estilos inline para performance */
+        .quiz-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="quiz-loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Carregando perguntas...</p>
+        </div>
+    </div>
+
+    <!-- Header do Quiz -->
+    <header class="quiz-header">
+        <div class="quiz-header-content">
+            <a href="index.html" class="back-button">←</a>
+            <div class="quiz-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">Pergunta 1 de 30</span>
+            </div>
+            <button class="quiz-menu-btn" id="quizMenuBtn">⋮</button>
+        </div>
+
+        <!-- Menu do Quiz -->
+        <div class="quiz-menu" id="quizMenu">
+            <button onclick="pauseQuiz()">⏸️ Pausar</button>
+            <button onclick="showExplanation()">❓ Como funciona</button>
+            <button onclick="resetQuiz()">🔄 Reiniciar</button>
+            <button onclick="window.location.href='index.html'">🏠 Início</button>
+        </div>
+    </header>
+
+    <!-- Container Principal -->
+    <main class="quiz-container">
+        <!-- Área da Pergunta -->
+        <section class="question-section">
+            <div class="question-counter">
+                <span class="counter-number" id="currentQuestion">1</span>
+                <span class="counter-total">/30</span>
+            </div>
+
+            <div class="question-card" id="questionCard">
+                <h2 class="question-text" id="questionText"></h2>
+
+                <!-- Imagem da questão (se houver) -->
+                <div class="question-image" id="questionImage"></div>
+
+                <!-- Contexto da questão -->
+                <div class="question-context" id="questionContext"></div>
+            </div>
+
+            <!-- Timer (opcional) -->
+            <div class="question-timer" id="questionTimer">
+                <div class="timer-bar">
+                    <div class="timer-fill"></div>
+                </div>
+                <span class="timer-text">Tempo para responder</span>
+            </div>
+        </section>
+
+        <!-- Propaganda Entre Perguntas -->
+        <div class="quiz-ad" id="quizAd">
+            <!-- Ad será injetado dinamicamente -->
+        </div>
+
+        <!-- Área das Respostas -->
+        <section class="answers-section">
+            <div class="answers-grid" id="answersGrid">
+                <!-- Botões serão gerados dinamicamente -->
+            </div>
+
+            <!-- Barra de intensidade -->
+            <div class="intensity-bar">
+                <div class="intensity-labels">
+                    <span>Discordo Totalmente</span>
+                    <span>Neutro</span>
+                    <span>Concordo Totalmente</span>
+                </div>
+                <div class="intensity-slider" id="intensitySlider">
+                    <!-- Pontos serão gerados dinamicamente -->
+                </div>
+            </div>
+
+            <!-- Botões de navegação -->
+            <div class="navigation-buttons">
+                <button class="nav-btn prev-btn" id="prevBtn" disabled>
+                    ← Anterior
+                </button>
+                <button class="nav-btn skip-btn" id="skipBtn">
+                    ⏭️ Pular
+                </button>
+                <button class="nav-btn next-btn" id="nextBtn" disabled>
+                    Próxima →
+                </button>
+            </div>
+        </section>
+
+        <!-- Dica -->
+        <div class="quiz-tip">
+            <p>💡 <strong>Dica:</strong> Responda com sinceridade para um resultado mais preciso</p>
+        </div>
+    </main>
+
+    <!-- Footer do Quiz -->
+    <footer class="quiz-footer">
+        <!-- Propaganda Mobile Footer -->
+        <div class="footer-ad">
+            <div class="ad-label">PUBLICIDADE</div>
+            <div id="footerAd"></div>
+        </div>
+
+        <!-- Contador de questões respondidas -->
+        <div class="answered-counter">
+            <span id="answeredCount">0</span> de 30 respondidas
+        </div>
+    </footer>
+
+    <!-- Modal de Pausa -->
+    <div class="modal" id="pauseModal">
+        <div class="modal-content">
+            <h3>Quiz Pausado</h3>
+            <p>Seu progresso foi salvo automaticamente.</p>
+            <button onclick="resumeQuiz()" class="modal-btn primary">Continuar</button>
+            <button onclick="resetQuiz()" class="modal-btn secondary">Reiniciar</button>
+            <button onclick="window.location.href='index.html'" class="modal-btn">Sair</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="quiz.js"></script>
+    <script src="ads-manager.js"></script>
+
+    <!-- Analytics -->
+    <script>
+        // Inicializar analytics
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+
+        // Remover loader quando carregado
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>
